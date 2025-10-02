@@ -1,4 +1,5 @@
 import './App.css'
+import Form from '../components/Form.jsx'
 
 function App() {
     const backgroundColor = {
@@ -18,6 +19,7 @@ function App() {
     <div style={backgroundColor}>
         <div>
             <h1 style={headingStyle}>Ticketing Application SPC</h1>
+            <Form />
         </div>
     </div>
   )
