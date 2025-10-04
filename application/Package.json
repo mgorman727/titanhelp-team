@@ -1,14 +1,14 @@
 {
-  "name": "titanhelp-application",
+  "name": "application-layer",
   "version": "1.0.0",
-  "description": "TitanHelp application layer (Express backend)",
+  "description": "Application layer for TitanHelp Ticket System",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "cors": "^2.8.5",
-    "mongoose": "^7.5.0"
+    "mongoose": "^8.19.0"
   }
 }
