@@ -1,2 +1,0 @@
-# titanhelp-team
-Group Project
