@@ -1,4 +1,4 @@
-// application/routes/tickets.js
+
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/ticketController');
@@ -9,4 +9,3 @@ router.put('/:id', controller.updateTicket);
 router.delete('/:id', controller.deleteTicket);
 
 module.exports = router;
-
