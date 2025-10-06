@@ -11,11 +11,15 @@ async function getAllTickets(req, res) {
 
 async function createTicket(req, res) {
   try {
-    const { name, description, priority } = req.body;
-    if (!name || !description) {
-      return res.status(400).json({ message: "Name and description are required" });
+    const { firstName, lastName, description, priority } = req.body;
+
+    if (!firstName || !lastName || !description) {
+      return res.status(400).json({ message: "First name, last name, and description are required" });
     }
-    const ticket = await repo.createTicket({ name, description, priority });
+
+    const fullName = `${firstName} ${lastName}`;
+
+    const ticket = await repo.createTicket({ name: fullName, description, priority });
     res.status(201).json(ticket);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -42,4 +46,3 @@ async function deleteTicket(req, res) {
 }
 
 module.exports = { getAllTickets, createTicket, updateTicket, deleteTicket };
-
