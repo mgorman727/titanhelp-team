@@ -1,50 +1,102 @@
 import { useState } from 'react'
 
-export default function Form() {
+export default function Form({ onTicketCreated }) {
 
-    function submitForm() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                let shouldError = answer.toLowerCase() !== 'lima'
-                if (shouldError) {
-                    reject(new Error('Good guess but a wrong answer. Try again!'));
-                } else {
-                    resolve();
-                }
-            })
-        })
+    function validateForm() {
+        if (!firstName.trim() || firstName.length > 100) {
+            return 'Name is required and must be 100 characters or less'
+        }
+        if (!problemDescription.trim() || problemDescription.length > 1000) {
+            return 'Problem Description is required and must be 1000 characters or less'
+        }
+        return null
     }
 
-    const [answer, setAnswer] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [problemDescription, setProblemDescription] = useState('')
+    const [priority, setPriority] = useState('Medium')
+    // const [ticktStatus, setTicktStatus] = useState('Unknown')
     const [error, setError] = useState(null)
     const [status, setStatus] = useState('typing')
 
-    if (status === 'success') {
-        return (
-            <div>
-                <h1>Ticket Details</h1>
-                {/*<h1>Correct</h1>*/}
-                <p>{answer}</p>
-            </div>
-        )
-    }
-
     async function handleSubmit(e) {
         e.preventDefault()
-        setStatus('submitting')
-        try {
-            await submitForm(answer)
-            setStatus('success')
-        } catch (err) {
-            setStatus('typing')
-            setError(err)
+        const validationError = validateForm()
+        if (validationError) {
+            setError({message: validationError})
+            return
         }
+
+    setStatus('submitting')
+    setError(null)
+
+    const newTicket = {
+        id: Date.now(),
+        name: `${firstName.trim()} ${lastName.trim()}`.trim(),
+        date: new Date().toISOString(),
+        problemDescription: problemDescription.trim(),
+        priority,
+        status: 'Open', // Default
     }
 
-    function handleTextareaChange(e) {
-        setAnswer(e.target.value)
-        console.log(e.target.value)
+    onTicketCreated(newTicket);
+
+    setFirstName('')
+    setLastName('')
+    setProblemDescription('')
+    setPriority('Medium')
+    setStatus('success')
+    setTimeout(() => setStatus('typing'), 3000)
+
+    // try {
+    //     const response = await fetch('http://localhost:5173/', {
+    //         method: 'POST',
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify({
+    //             firstName,
+    //             lastName,
+    //             problemDescription,
+    //             priority,
+    //             status: 'Open',
+    //         })
+    //     })
+    //
+    //     if (!response.ok) {
+    //         throw new Error(`Failed to save ticket: ${response.statusText}`)
+    //     }
+    //
+    //     const newTicket = await response.json()
+    //     setStatus('success')
+    //     onTicketCreated(newTicket)
+    //     setFirstName('')
+    //     setLastName('')
+    //     setProblemDescription('')
+    //     setPriority('Medium')
+    // } catch (err) {
+    //     setError({message: err.message})
+    //     setStatus('typing')
+    // }
     }
+
+    function handleFirstNameChange(e) {
+        setFirstName(e.target.value)
+    }
+
+    function handleLastNameChange(e) {
+        setLastName(e.target.value)
+    }
+
+    function handleProblemDescriptionChange(e) {
+        setProblemDescription(e.target.value)
+    }
+
+    function handlePriorityChange(e) {
+        setPriority(e.target.value)
+    }
+
+    const isSubmitting = status === 'submitting'
+    const isInvalid = firstName.length > 100 || lastName.length > 100 || problemDescription.length > 1000
 
     return (
         <>
@@ -52,20 +104,49 @@ export default function Form() {
             <p>Fill out the information for your ticket request</p>
             <form onSubmit={handleSubmit}>
                 <textarea
-                    placeholder="Enter Your ticket request"
-                    value={answer}
-                    onChange={handleTextareaChange}
+                    type='text'
+                    id='firstName'
+                    placeholder="Enter Your First Name"
+                    value={firstName}
+                    onChange={handleFirstNameChange}
+                    disabled={isSubmitting}
+                    maxLength={100}
+                    required
+                />
+                {/*{firstName.length > 100 && <span>Max 100 characters</span>}*/}
+                <textarea
+                    type='text'
+                    id='lastName'
+                    placeholder="Enter Your Last Name"
+                    value={lastName}
+                    onChange={handleLastNameChange}
                     disabled={status === 'submitting'}
+                    maxLength={100}
+                    required
                 />
                 <textarea
-                    placeholder="First Name"
+                    type='text'
+                    id='problemDescription'
+                    placeholder='Problem Description'
+                    value={problemDescription}
+                    onChange={handleProblemDescriptionChange}
+                    disabled={status === 'submitting'}
+                    maxLength={1000}
+                    required
                 />
-                <textarea
-                    placeholder="Last Name"
-                />
-                <br />
-                <button disabled={answer.length === 0 || status === 'submitting'}>Submit</button>
+                <div>
+                    <label htmlFor='priority'>Priority:</label>
+                    <select id='priority' value={priority} onChange={handlePriorityChange} disabled={isSubmitting}>
+                        <option value={'High'}>High</option>
+                        <option value={'Medium'}>Medium</option>
+                        <option value={'Low'}>Low</option>
+                    </select>
+                </div>
+                <br/>
+                <button
+                    disabled={problemDescription.length === 0 || status === 'submitting' || isInvalid}>{isSubmitting ? 'Submitting...' : 'Submit Ticket'}</button>
                 {error !== null && <p>{error.message}</p>}
+                {status === 'success' && <p className="success">Ticket created successfully!</p>}
             </form>
         </>
     )
