@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const connectDB = require('../data-access/db'); 
-const ticketRoutes = require('./routes/ticketRoutes');
+const connectDB = require('../data-access/db');
+const ticketRoutes = require('./routes/tickets'); 
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/tickets', ticketRoutes); 
+app.use('/tickets', ticketRoutes);
+
 connectDB();
 
 app.get('/', (req, res) => {
