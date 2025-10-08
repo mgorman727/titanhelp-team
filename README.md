@@ -3,6 +3,7 @@
 A full-stack ticketing system that allows users to create, view, and track support tickets.
 
 ## Team Members
+
 - Michael Gorman – Application Layer
 - Nelson Rosario – Presentation Layer
 - Sean Berlin – Data Access Layer
@@ -10,6 +11,7 @@ A full-stack ticketing system that allows users to create, view, and track suppo
 ## Project Overview
 
 TitanHelp is a help desk ticket management system structured with a clear separation of concerns:
+
 - Presentation Layer (React frontend)
 - Application Layer (Express backend)
 - Data Access Layer (MongoDB Database)
@@ -23,37 +25,45 @@ TitanHelp is a help desk ticket management system structured with a clear separa
 ## Installation & Setup
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/mgorman727/titanhelp-team.git
 cd titanhelp-team
 ```
 
 ### 2. Set up the Data Access Layer
+
 ```bash
 cd data-access
 npm install
 ```
 
 Test the database connection:
+
 ```bash
 node testDAL.js
 ```
+
 You should see "MongoDB connected to Atlas" and test data operations.
 
 ### 3. Set up the Backend (Application Layer)
+
 ```bash
 cd ../application
 npm install
 npm start
 ```
+
 The server will run on http://localhost:4000
 
 ### 4. Set up the Frontend (Presentation Layer)
+
 ```bash
 cd ../presentation/ticket-app
 npm install
 npm run dev
 ```
+
 The frontend will be available at http://localhost:5173
 
 ## Project Structure
@@ -74,6 +84,7 @@ titanhelp-team/
 ## Usage
 
 1. Start all three layers in order:
+
    - Data access layer should be ready (MongoDB Atlas)
    - Start the application server (port 4000)
    - Start the frontend dev server (port 5173)
@@ -93,11 +104,13 @@ titanhelp-team/
 ## Troubleshooting
 
 1. Connection Issues:
+
    - Verify all three servers are running
    - Check MongoDB Atlas connection
    - Ensure ports 4000 and 5173 are available
 
 2. Database Issues:
+
    - Run `testDAL.js` to verify database connection
    - Check MongoDB Atlas access in `data-access/db.js`
    - Verify your IP is whitelisted in MongoDB Atlas

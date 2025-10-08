@@ -1,6 +1,15 @@
 import { useState } from 'react'
 
 export default function Form({ onTicketCreated }) {
+  const inputAreaStyle = {
+    alignContent: 'center',
+    resize: 'none',
+    border: '1px solid #f0f0f0',
+    color: '#333333',
+    padding: '8px 16px',
+    background: '#e8f1f4',
+  }
+
   function validateForm() {
     if (!firstName.trim() || firstName.length > 100) {
       return 'Name is required and must be 100 characters or less'
@@ -160,10 +169,35 @@ export default function Form({ onTicketCreated }) {
 
   return (
     <>
-      <h2>Fill out ticket information</h2>
-      <p>Fill out the information for your ticket request</p>
-      <form onSubmit={handleSubmit}>
+      <h2
+        style={{
+          textAlign: 'center',
+          color: '#0B3558',
+        }}
+      >
+        Fill out ticket information
+      </h2>
+      <p
+        style={{
+          textAlign: 'center',
+          color: '#476788',
+        }}
+      >
+        Fill out the information for your ticket request
+      </p>
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          width: '100%',
+          maxWidth: '500px',
+          padding: '24px 0px',
+        }}
+      >
         <textarea
+          style={inputAreaStyle}
           type='text'
           id='firstName'
           placeholder='Enter Your First Name'
@@ -175,6 +209,7 @@ export default function Form({ onTicketCreated }) {
         />
         {/*{firstName.length > 100 && <span>Max 100 characters</span>}*/}
         <textarea
+          style={inputAreaStyle}
           type='text'
           id='lastName'
           placeholder='Enter Your Last Name'
@@ -185,6 +220,7 @@ export default function Form({ onTicketCreated }) {
           required
         />
         <textarea
+          style={inputAreaStyle}
           type='text'
           id='problemDescription'
           placeholder='Problem Description'
@@ -194,9 +230,14 @@ export default function Form({ onTicketCreated }) {
           maxLength={1000}
           required
         />
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <label htmlFor='priority'>Priority:</label>
           <select
+            style={{
+              ...inputAreaStyle,
+              height: '50px',
+              width: '100%',
+            }}
             id='priority'
             value={priority}
             onChange={handlePriorityChange}
@@ -207,8 +248,16 @@ export default function Form({ onTicketCreated }) {
             <option value={'Low'}>Low</option>
           </select>
         </div>
-        <br />
         <button
+          style={{
+            background: '#0096c7',
+            border: 'none',
+            color: 'white',
+            padding: '12px 20px',
+            borderRadius: '4px',
+            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            fontSize: '1rem',
+          }}
           disabled={
             problemDescription.length === 0 ||
             status === 'submitting' ||

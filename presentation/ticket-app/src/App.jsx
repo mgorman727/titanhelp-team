@@ -6,15 +6,14 @@ import { useEffect } from 'react'
 
 function App() {
   const headingStyle = {
-    color: 'darkblue',
+    color: 'white',
     fontSize: '2rem',
+    textAlign: 'center',
   }
   const appContainerStyle = {
     backgroundColor: '#F8FAFC',
     display: 'flex',
-    flex: 1,
     flexDirection: 'column',
-    height: '100vh',
     width: '100vw',
     justifyContent: 'center',
     alignItems: 'center',
@@ -23,9 +22,9 @@ function App() {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: '#0077b6',
     width: '100vw',
+    padding: '32px',
   }
   const mainContainerStyle = {
     display: 'flex',
@@ -33,31 +32,31 @@ function App() {
     gap: '1rem',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 10,
     padding: '0.3rem',
-    backgroundColor: 'yellow',
-    width: '80vw',
+    // backgroundColor: 'yellow',
+    // width: '80vw',
+    maxWidth: '1500px',
+    width: '100%',
   }
   const ticketListContainer = {
-    backgroundColor: 'lightblue',
+    // backgroundColor: 'lightblue',
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
     gap: '1rem',
+    padding: '0.5em',
     // overflowY: 'auto',
-    height: '800px',
   }
   const formContainer = {
     display: 'flex',
     gap: '1rem',
+    padding: '0.5em',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    backgroundColor: 'lightgreen',
+    // backgroundColor: 'lightgreen',
     width: '100%',
-    flex: 2,
   }
 
   // Replacing hardcoded tickets with empty array to be populated from backend
