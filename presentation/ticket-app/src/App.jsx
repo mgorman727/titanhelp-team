@@ -155,7 +155,7 @@ function App() {
   return (
     <div style={appContainerStyle}>
       <header style={appHeaderStyle}>
-        <h1 style={headingStyle}>Ticketing Application SPC</h1>
+        <h1 style={headingStyle}>Titan Help Team</h1>
       </header>
       <main style={mainContainerStyle}>
         <div style={ticketListContainer}>
